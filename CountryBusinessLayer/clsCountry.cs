@@ -20,6 +20,7 @@ namespace CountryBusinessLayer
         {
             this.CountryID = countryID;
             this.CountryName = countryName;
+            Mode = enMode.Update;
         }
 
         public clsCountry()
@@ -46,6 +47,11 @@ namespace CountryBusinessLayer
             return this.CountryID != -1;
         }
 
+        private bool _UpdatebyID()
+        {
+            return clsCountryData.UpdateCountry(this.CountryID, this.CountryName);
+        }
+
         public bool Save()
         {
             switch (Mode)
@@ -62,10 +68,12 @@ namespace CountryBusinessLayer
 
 
                 }
-               default: 
-                    return false;
+                case enMode.Update: 
+                    return _UpdatebyID();
 
             }
+
+            return false;
 
             
                 

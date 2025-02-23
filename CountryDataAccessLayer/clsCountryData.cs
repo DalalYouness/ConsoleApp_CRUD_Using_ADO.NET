@@ -131,5 +131,44 @@ namespace CountryDataAccessLayer
             return IsFound;
         }
 
+
+        public static bool UpdateCountry(int ID, string CountryName)
+        {
+            int AffectedRows = 0;
+
+
+            SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
+
+            string Query = @"UPDATE Countries SET CountryName = @Name WHERE CountryID = @CountryID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@CountryID", ID);
+
+            if(CountryName.Equals(""))
+            {
+                command.Parameters.AddWithValue("@Name", System.DBNull.Value);
+            }
+            else
+                command.Parameters.AddWithValue("@Name", CountryName);
+
+            try
+            {
+                connection.Open();
+                AffectedRows = command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();    
+            }
+
+            return AffectedRows > 0;
+
+
+        }
+
     }
 }

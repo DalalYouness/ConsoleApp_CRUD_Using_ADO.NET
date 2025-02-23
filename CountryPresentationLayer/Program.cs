@@ -27,6 +27,28 @@ using CountryBusinessLayer;
 
         public static void UpdateCountryByID(int ID)
         {
+            clsCountry country = clsCountry.Find(ID);
+            if(country != null )
+            {
+                country.CountryName = "Mexico";
+
+                if(country.Save())
+                {
+
+                     Console.WriteLine("Country Updated Successfuly");
+                     
+
+                }
+                else
+                {
+                    Console.WriteLine("Country Update Failed");
+
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Country Not Found");
+            }
 
         }
 
@@ -55,10 +77,11 @@ using CountryBusinessLayer;
     }
         static void Main(string[] args)
         {
-             //TestFindByID(7);
-             //TestAddNewCountry();
-             TestIsCountryExistByID(9);
-             Console.ReadKey();
+            //TestFindByID(7);
+            //TestAddNewCountry();
+            //TestIsCountryExistByID(9);
+            UpdateCountryByID(9);
+            Console.ReadKey();
         }
     }
 
