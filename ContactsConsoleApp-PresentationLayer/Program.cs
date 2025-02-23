@@ -87,14 +87,24 @@ namespace ContactsConsoleApp_PresentationLayer
 
         static void DeleteContactByID(int ID)
         {
-            if(clsContact.DeleteContact(ID))
+
+            if (clsContact.IsContactExist(ID))
             {
-                Console.WriteLine("Contact Deleted Successufuly");
+                if (clsContact.DeleteContact(ID))
+                {
+                    Console.WriteLine("Contact Deleted Successufuly");
+                }
+                else
+                {
+                    Console.WriteLine("Failed To delete Contact");
+                }
             }
             else
             {
-                Console.WriteLine("Delete Contact Dailed");
+                Console.WriteLine("No Contact isn't there");
             }
+
+            
 
         }
         
@@ -114,9 +124,15 @@ namespace ContactsConsoleApp_PresentationLayer
                 }
             }
         }
+
+
+        public static void IsContactExistByID(int ID)
+        {
+           
+        }
         static void Main(string[] args)
         {
-            getAllContacts();
+            IsContactExistByID(9);
             Console.ReadLine();
         }
     }

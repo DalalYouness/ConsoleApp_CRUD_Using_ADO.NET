@@ -103,6 +103,10 @@ namespace ContactsBusinessLayer
         }
 
 
+        public static bool IsContactExist(int ID)
+        {
+            return clsContactData.IsContactExistByID(ID);
+        }
         public bool Save()
         {
             switch (Mode)
