@@ -105,22 +105,33 @@ using CountryBusinessLayer;
         {
           DataTable datatable = clsCountry.GetAllCountries();
 
-         if(datatable != null)
-         {
-            foreach (DataRow row in datatable.Rows)
+            if(datatable != null)
             {
-                Console.WriteLine($"CountryID =  {row["CountryID"]} : CountryName = {row["CountryName"]}");
+               foreach (DataRow row in datatable.Rows)
+               {
+                   Console.WriteLine($"CountryID =  {row["CountryID"]} : CountryName = {row["CountryName"]}");
 
+               }
             }
-         }
-         else
-         {
-            Console.WriteLine("There is No Countries");
-         }
+            else
+            {
+               Console.WriteLine("There is No Countries");
+            }
+        }
 
-       
-          
-   
+        public static void FindCountryByName(string CountryName)
+        {
+           clsCountry country = clsCountry.FindByName(CountryName);
+          if(country != null )
+          {
+            Console.WriteLine($"CountryID   : {country.CountryID}");
+            Console.WriteLine($"CountryName : {country.CountryName}");
+          }
+          else
+          {
+            Console.WriteLine("Country not found");
+          }
+
         }
         static void Main(string[] args)
         {
@@ -129,7 +140,8 @@ using CountryBusinessLayer;
             //TestIsCountryExistByID(9);
             //DeleteCountryByID(7);
             //UpdateCountryByID(9);
-            GetAllCountries();
+            //GetAllCountries();
+            FindCountryByName("morocco");
 
             Console.ReadKey();
         }

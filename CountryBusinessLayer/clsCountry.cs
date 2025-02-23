@@ -67,6 +67,20 @@ namespace CountryBusinessLayer
         }
 
 
+        public static clsCountry FindByName(string Name)
+        {
+            int CountryID = 0;
+
+            if(clsCountryData.FindCoutryByNameDAL(ref CountryID, Name))
+            {
+                return new clsCountry(CountryID, Name);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
         public bool Save()
         {
             switch (Mode)

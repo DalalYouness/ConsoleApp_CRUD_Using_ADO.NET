@@ -231,5 +231,43 @@ namespace CountryDataAccessLayer
 
         }
 
+        public static bool FindCoutryByNameDAL(ref int CountryID,string CountryName)
+        {
+            bool IsFound = false;
+
+            SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
+            string Query = @"SELECT * FROM Countries WHERE CountryName = @CountryName";
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    IsFound = true;
+                    CountryID = reader.GetInt32(0);
+                }
+
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                IsFound = false;
+            }
+            finally
+            {
+
+                connection.Close();
+            }
+
+            return IsFound;
+        }
+
     }
 }
