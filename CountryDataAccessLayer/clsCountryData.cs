@@ -199,5 +199,37 @@ namespace CountryDataAccessLayer
 
         }
 
+
+        public static DataTable  GetAllCountrisDataAccees()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
+            string Query = @"SELECT * FROM Countries";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.HasRows)
+                {
+                    dt.Load(reader);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally {
+                connection.Close(); 
+            }
+
+            return dt;
+
+
+        }
+
     }
 }

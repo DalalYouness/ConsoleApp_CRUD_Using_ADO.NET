@@ -99,13 +99,37 @@ using CountryBusinessLayer;
            }
 
         }
+
+
+        public static void GetAllCountries()
+        {
+          DataTable datatable = clsCountry.GetAllCountries();
+
+         if(datatable != null)
+         {
+            foreach (DataRow row in datatable.Rows)
+            {
+                Console.WriteLine($"CountryID =  {row["CountryID"]} : CountryName = {row["CountryName"]}");
+
+            }
+         }
+         else
+         {
+            Console.WriteLine("There is No Countries");
+         }
+
+       
+          
+   
+        }
         static void Main(string[] args)
         {
             //TestFindByID(7);
             //TestAddNewCountry();
             //TestIsCountryExistByID(9);
-            DeleteCountryByID(7);
+            //DeleteCountryByID(7);
             //UpdateCountryByID(9);
+            GetAllCountries();
 
             Console.ReadKey();
         }

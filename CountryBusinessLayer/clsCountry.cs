@@ -60,6 +60,13 @@ namespace CountryBusinessLayer
         }
 
 
+
+        public static DataTable GetAllCountries()
+        {
+            return clsCountryData.GetAllCountrisDataAccees();
+        }
+
+
         public bool Save()
         {
             switch (Mode)
