@@ -128,8 +128,13 @@ namespace ContactsConsoleApp_PresentationLayer
 
         public static void IsContactExistByID(int ID)
         {
-           
+            if (clsContact.IsContactExist(ID))
+                Console.WriteLine("Yes Contact is there");
+            else
+                Console.WriteLine("No Contact isn't there");
+
         }
+
         static void Main(string[] args)
         {
             IsContactExistByID(9);
