@@ -170,5 +170,34 @@ namespace CountryDataAccessLayer
 
         }
 
+        public static bool DeleteCountry(int ID) 
+        {
+            int AffectedRows = 0;
+
+            SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
+            string Query = @"DELETE FROM Countries WHERE CountryID = @CountryID";
+            SqlCommand command = new SqlCommand(Query, connection);
+
+
+            command.Parameters.AddWithValue("@CountryID", ID);
+
+            try
+            {
+                connection.Open();
+                AffectedRows = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return AffectedRows > 0;
+
+        }
+
     }
 }

@@ -37,7 +37,6 @@ using CountryBusinessLayer;
 
                      Console.WriteLine("Country Updated Successfuly");
                      
-
                 }
                 else
                 {
@@ -74,13 +73,40 @@ using CountryBusinessLayer;
                 Console.WriteLine("Country Added Succesfully");
            else
                 Console.WriteLine("Country Add Failed");
-    }
+        }
+
+        public static void DeleteCountryByID(int ID)
+        {
+           if( clsCountry.IsCountryExist(ID))
+           {
+              if(clsCountry.DeleteByID(ID))
+              {
+
+                Console.WriteLine("Country Deleted Succesfuly");
+
+              }
+              else
+              {
+
+                Console.WriteLine("Country Delete Failed");
+              }
+
+           }
+           else
+           {
+            Console.WriteLine("Country Not Found");
+
+           }
+
+        }
         static void Main(string[] args)
         {
             //TestFindByID(7);
             //TestAddNewCountry();
             //TestIsCountryExistByID(9);
-            UpdateCountryByID(9);
+            DeleteCountryByID(7);
+            //UpdateCountryByID(9);
+
             Console.ReadKey();
         }
     }

@@ -52,6 +52,14 @@ namespace CountryBusinessLayer
             return clsCountryData.UpdateCountry(this.CountryID, this.CountryName);
         }
 
+
+        public static bool DeleteByID(int ID)
+        {
+            return clsCountryData.DeleteCountry(ID);
+
+        }
+
+
         public bool Save()
         {
             switch (Mode)
