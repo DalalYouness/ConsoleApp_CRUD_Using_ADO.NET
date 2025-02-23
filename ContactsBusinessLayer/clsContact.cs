@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Net;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using ContactsDataAccessLayer;
 
 namespace ContactsBusinessLayer
@@ -26,7 +28,8 @@ namespace ContactsBusinessLayer
        public DateTime DateOfBirth { get; set; }
        public string ImagePath { get; set; }
       
-        private clsContact(int contactID, string firstName, string lastName, string email, string phone, string address, int countryID, DateTime dateOfBirth, string imagePath)
+        private clsContact(int contactID, string firstName, string lastName, string email,
+            string phone, string address, int countryID, DateTime dateOfBirth, string imagePath)
         {
             ContactID = contactID;
             FirstName = firstName;
@@ -79,17 +82,26 @@ namespace ContactsBusinessLayer
 
         }
 
+       
         private bool _UpdateContact()
         {
-            return clsContactData.UpdateContact(this.ContactID,this.FirstName, this.LastName, this.Email,
+            //call DataAccess Layer 
+            return clsContactData.UpdateContactByID(this.ContactID, this.FirstName, this.LastName, this.Email,
                 this.Phone, this.Address, this.DateOfBirth, this.CountryID, this.ImagePath);
         }
 
 
-        public static bool DeleteContactByID(int ID)
+        public static bool DeleteContact(int ID)
         {
             return clsContactData.DeleteContactByID(ID);
         }
+        
+
+        public static DataTable GetAllContacts()
+        {
+            return clsContactData.getAllContacts();
+        }
+
 
         public bool Save()
         {
@@ -103,9 +115,9 @@ namespace ContactsBusinessLayer
                   }     
                   else
                         return false;
+
                 case enMode.UdpadeMode:
                     return _UpdateContact();
-
 
 
 

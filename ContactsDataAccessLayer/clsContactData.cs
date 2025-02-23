@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 
@@ -118,27 +119,30 @@ namespace ContactsDataAccessLayer
 
       }
 
-      public static bool UpdateContact(int ID,string FirstName, string LastName, string Email, string Phone, string Address, DateTime DateOfBirth
+     
+      public static bool UpdateContactByID(int ID,string FirstName, string LastName, string Email, string Phone, string Address, DateTime DateOfBirth
           ,int CountryID, string ImagePath)
       {
 
-            int RowsAffected = 0;
+            int AffectedRows = 0;
 
             SqlConnection connection = new SqlConnection(ContactsDataSettings.ConnectionString);
             string Query = @"UPDATE Contacts 
-                            SET FirstName = @FirstName,LastName = @LastName,Email = @Email,Phone = @Phone,
-                            Address = @Address,DateOfBirth = @DateOfBirth,CountryID = @CountryID,ImagePath = @ImagePath
-                            WHERE ContactID = @ContactID";
+                             SET FirstName = @FirstName,LastName = @LastName,Email = @Email,Phone = @Phone,
+                              Address = @Address,DateOfBirth = @DateBirth,CountryID = @CountryId,ImagePath = @ImagePath
+                              WHERE ContactID = @ID";
+
             SqlCommand command = new SqlCommand(Query, connection);
             command.Parameters.AddWithValue("@FirstName", FirstName);
             command.Parameters.AddWithValue("@LastName", LastName);
             command.Parameters.AddWithValue("@Email", Email);
             command.Parameters.AddWithValue("@Phone", Phone);
             command.Parameters.AddWithValue("@Address", Address);
-            command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
-            command.Parameters.AddWithValue("@CountryID", CountryID);
+            command.Parameters.AddWithValue("@DateBirth", DateOfBirth);
+            command.Parameters.AddWithValue("@CountryId", CountryID);
+            command.Parameters.AddWithValue("@ID", ID);
 
-            if(ImagePath=="")
+            if(ImagePath == "")
             {
                 command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
             }
@@ -146,48 +150,11 @@ namespace ContactsDataAccessLayer
             {
                 command.Parameters.AddWithValue("@ImagePath", ImagePath);
             }
-            command.Parameters.AddWithValue("@ContactID", ID);
-
 
             try
             {
                 connection.Open();
-                RowsAffected = command.ExecuteNonQuery();
-             
-
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                if(connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-
-            return RowsAffected > 0;
-
-      }
-
-
-      public static bool DeleteContactByID(int ID)
-      {
-
-            int AffetedRows = 0;
-
-            SqlConnection connection = new SqlConnection(ContactsDataSettings.ConnectionString);
-            string Query = @"DELETE FROM Contacts WHERE ContactID = @ContactID";
-            SqlCommand command = new SqlCommand(Query, connection);
-
-            command.Parameters.AddWithValue("@ContactID", ID);
-
-            try
-            {
-                connection.Open();
-                AffetedRows = command.ExecuteNonQuery();
+                AffectedRows = command.ExecuteNonQuery();
             }
             catch(Exception ex)
             {
@@ -195,15 +162,80 @@ namespace ContactsDataAccessLayer
             }
             finally
             {
+                connection.Close();
+            }
+            return (AffectedRows > 0);
+      }
+
+
+     public static DataTable getAllContacts()
+     {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(ContactsDataSettings.ConnectionString);
+            string Query = "SELECT * FROM Contacts";
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.HasRows)
+                {
+                    dt.Load(reader);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
                 if(connection.State == System.Data.ConnectionState.Open)
                 {
                     connection.Close();
                 }
             }
 
-            return AffetedRows > 0;
+            return dt;
 
-      }
+     }
+
+
+      public static bool DeleteContactByID(int ID)
+      {
+            int AffectedRows = 0;
+
+            SqlConnection connection = new SqlConnection(ContactsDataSettings.ConnectionString);
+
+            string Query = "DELETE FROM Contacts WHERE ContactID = @ID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            command.Parameters.AddWithValue("@ID", ID);
+
+            try
+            {
+                connection.Open();
+                AffectedRows = command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            { 
+                connection.Close(); 
+            }
+
+            return AffectedRows > 0;
+        }
+
+   
         
     }
 }

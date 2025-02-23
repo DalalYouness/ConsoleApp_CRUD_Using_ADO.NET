@@ -28,6 +28,7 @@ namespace ContactsConsoleApp_PresentationLayer
                 Console.WriteLine($"Contact with ID:[{ID}] not found");
             }
         }
+
         static void TestAddNewContact()
         {
             clsContact contact = new clsContact();
@@ -52,29 +53,31 @@ namespace ContactsConsoleApp_PresentationLayer
 
         }
 
-         static void UpdateContactByID(int ID)
+        static void TestUpdateContactByID(int ID)
         {
             clsContact contact = clsContact.Find(ID);
 
-            if (contact != null)
+            if(contact!=null)
             {
-                contact.FirstName = "Mohammed";
-                contact.LastName = "Ganine";
-                contact.Email = "Gaine@gmail.com";
-                contact.Phone = "0631546012";
-                contact.Address = "Sidi Maarouf";
-                contact.DateOfBirth = new DateTime(2001, 02, 27);
-                contact.ImagePath = "C://Image.png";
-                contact.CountryID = 1;
+                //update whatever info you want
+                contact.FirstName = "Abdelkader";
+                contact.LastName = "Dalal";
+                contact.Email = "Abdo@Gmail.com";
+                contact.Phone = "06457896";
+                contact.Address = "Casa n4523";
+                contact.DateOfBirth = new DateTime(1999,02,12);
+                contact.CountryID = 2;
+                contact.ImagePath = "";
 
                 if (contact.Save())
                 {
-                    Console.WriteLine("Contact Updated Successfuly");
+                    Console.WriteLine("Contact Updated with success");
                 }
                 else
                 {
-                    Console.WriteLine("Contact Update Fail");
+                    Console.WriteLine("Contact Update Failed");
                 }
+
             }
             else
             {
@@ -82,29 +85,38 @@ namespace ContactsConsoleApp_PresentationLayer
             }
         }
 
-        public static void TestDeleteContactByID(int ID)
+        static void DeleteContactByID(int ID)
         {
-           
-            
-                /* we will delete the record from data base using
-                  directly static methode for delete because is not 
-                 usable to create an object then we delete it from data 
-                 base , the object will stay in the memory 
-                */
-                if(clsContact.DeleteContactByID(ID))
-                {
-                    Console.WriteLine("Contact Deleted Sussefully");
-                }
-                else
-                {
-                    Console.WriteLine("Contact delet failed");
-                }
-         
+            if(clsContact.DeleteContact(ID))
+            {
+                Console.WriteLine("Contact Deleted Successufuly");
+            }
+            else
+            {
+                Console.WriteLine("Delete Contact Dailed");
+            }
+
         }
         
+        static void getAllContacts()
+        {
+            DataTable dataTabe = clsContact.GetAllContacts();
+
+            Console.WriteLine("==============================");
+            Console.WriteLine("\t   Contacts Info");
+            Console.WriteLine("==============================");
+            if (dataTabe!=null)
+            {
+
+                foreach(DataRow row in dataTabe.Rows)
+                {
+                    Console.WriteLine($"{row["ContactID"]}, {row["FirstName"]}, {row["LastName"]}");
+                }
+            }
+        }
         static void Main(string[] args)
         {
-            TestDeleteContactByID(14);
+            getAllContacts();
             Console.ReadLine();
         }
     }
