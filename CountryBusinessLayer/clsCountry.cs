@@ -1,10 +1,42 @@
 ﻿using System;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
 using CountryDataAccessLayer;
 
 namespace CountryBusinessLayer
 {
     public class clsCountry
     {
+        public enum enMode : byte
+        {
+           AddNew = 1,
+           Update = 2
+        }
+        public int CountryID { get; set; }
+        public string CountryName { get; set; }
+
+        private clsCountry(int countryID, string countryName)
+        {
+            this.CountryID = countryID;
+            this.CountryName = countryName;
+        }
+
+        public clsCountry()
+        {
+            this.CountryID = -1;
+            this.CountryName = "";
+        }
+
+        public static clsCountry Find(int ID)
+        {
+            string CountryName = "";
+
+            if (clsCountryData.FindCountryByID(ID, ref CountryName))
+               return new clsCountry(ID, CountryName);
+            else
+                return null;
+        }
+
+
     }
 }

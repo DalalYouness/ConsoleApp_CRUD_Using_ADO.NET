@@ -44,5 +44,11 @@
     <Compile Include="clsCountryData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactsDataAccessLayer\ContactsDataAccessLayer.csproj">
+      <Project>{2d865c27-9767-408b-b280-447e72938535}</Project>
+      <Name>ContactsDataAccessLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

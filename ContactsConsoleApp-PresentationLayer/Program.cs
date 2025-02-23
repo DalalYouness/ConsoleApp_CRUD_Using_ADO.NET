@@ -137,7 +137,7 @@ namespace ContactsConsoleApp_PresentationLayer
 
         static void Main(string[] args)
         {
-            IsContactExistByID(9);
+            IsContactExistByID(1);
             Console.ReadLine();
         }
     }
