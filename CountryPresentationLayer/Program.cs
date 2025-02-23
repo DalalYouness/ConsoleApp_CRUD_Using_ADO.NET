@@ -29,7 +29,7 @@ using CountryBusinessLayer;
         public static void TestAddNewCountry()
         {
            clsCountry country = new clsCountry();
-           country.CountryName = "";
+           country.CountryName = "Palestine";
 
            if(country.Save())
                 Console.WriteLine("Country Added Succesfully");

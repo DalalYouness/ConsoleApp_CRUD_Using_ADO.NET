@@ -53,7 +53,11 @@ namespace CountryBusinessLayer
                 case enMode.AddNew:
                 {
                    if (_AddNew())
-                            return true;
+                   {
+                      Mode = enMode.Update;
+                      return true;
+                   }
+                           
                    else return false;
 
 
