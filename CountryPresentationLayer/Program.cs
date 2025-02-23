@@ -24,9 +24,22 @@ using CountryBusinessLayer;
            }
 
         }
+
+
+        public static void TestAddNewCountry()
+        {
+           clsCountry country = new clsCountry();
+           country.CountryName = "";
+
+           if(country.Save())
+                Console.WriteLine("Country Added Succesfully");
+           else
+                Console.WriteLine("Country Add Failed");
+    }
         static void Main(string[] args)
         {
-             TestFindByID(7);
+             //TestFindByID(7);
+             TestAddNewCountry();
              Console.ReadKey();
         }
     }

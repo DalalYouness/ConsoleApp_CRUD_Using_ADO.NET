@@ -15,6 +15,7 @@ namespace CountryBusinessLayer
         public int CountryID { get; set; }
         public string CountryName { get; set; }
 
+        private enMode Mode = enMode.AddNew;
         private clsCountry(int countryID, string countryName)
         {
             this.CountryID = countryID;
@@ -25,6 +26,7 @@ namespace CountryBusinessLayer
         {
             this.CountryID = -1;
             this.CountryName = "";
+            Mode = enMode.AddNew;
         }
 
         public static clsCountry Find(int ID)
@@ -35,6 +37,32 @@ namespace CountryBusinessLayer
                return new clsCountry(ID, CountryName);
             else
                 return null;
+        }
+
+        private bool _AddNew()
+        {
+            this.CountryID = clsCountryData.AddNewAddNewCountry(this.CountryName);
+
+            return this.CountryID != -1;
+        }
+
+        public bool Save()
+        {
+            switch (Mode)
+            {
+                case enMode.AddNew:
+                {
+                   if (_AddNew())
+                            return true;
+                   else return false;
+
+
+                }
+               default: 
+                    return false;
+
+            }
+                
         }
 
 
