@@ -25,7 +25,24 @@ using CountryBusinessLayer;
 
         }
 
+        public static void UpdateCountryByID(int ID)
+        {
 
+        }
+
+        public static void TestIsCountryExistByID(int ID)
+        {
+
+          if(clsCountry.IsCountryExist(ID))
+          {
+            Console.WriteLine("Yes Country is exist");
+          }
+          else
+          {
+            Console.WriteLine("No, Country is not");
+
+          }
+        }
         public static void TestAddNewCountry()
         {
            clsCountry country = new clsCountry();
@@ -39,7 +56,8 @@ using CountryBusinessLayer;
         static void Main(string[] args)
         {
              //TestFindByID(7);
-             TestAddNewCountry();
+             //TestAddNewCountry();
+             TestIsCountryExistByID(9);
              Console.ReadKey();
         }
     }

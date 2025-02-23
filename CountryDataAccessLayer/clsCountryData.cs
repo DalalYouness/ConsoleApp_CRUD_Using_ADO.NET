@@ -98,5 +98,38 @@ namespace CountryDataAccessLayer
         
         }
 
+
+        public static bool IsCountryExistByID(int ID)
+        {
+            bool IsFound = false;
+
+            SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
+
+            string Query = @"SELECT Found = 1 FROM Countries WHERE CountryID = @CountryID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            command.Parameters.AddWithValue("@CountryID", ID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                IsFound = reader.HasRows;
+            }
+            catch (Exception ex) 
+            { 
+
+            }
+            finally
+            {
+                if(connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+            return IsFound;
+        }
+
     }
 }

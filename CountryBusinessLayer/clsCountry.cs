@@ -66,7 +66,14 @@ namespace CountryBusinessLayer
                     return false;
 
             }
+
+            
                 
+        }
+
+        public static bool IsCountryExist(int ID)
+        {
+            return clsCountryData.IsCountryExistByID(ID);
         }
 
 
