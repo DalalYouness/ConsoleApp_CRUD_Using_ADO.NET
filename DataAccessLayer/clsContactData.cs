@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 
 
-namespace ContactsDataAccessLayer
+namespace DataAccessLayer
 {
     public  class clsContactData
     {

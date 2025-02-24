@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
-using CountryDataAccessLayer;
+using DataAccessLayer;
 
-namespace CountryBusinessLayer
+
+namespace BusinessLayer
 {
     public class clsCountry
     {
@@ -16,6 +16,7 @@ namespace CountryBusinessLayer
         public string CountryName { get; set; }
 
         private enMode Mode = enMode.AddNew;
+
         private clsCountry(int countryID, string countryName)
         {
             this.CountryID = countryID;
@@ -42,7 +43,7 @@ namespace CountryBusinessLayer
 
         private bool _AddNew()
         {
-            this.CountryID = clsCountryData.AddNewAddNewCountry(this.CountryName);
+            this.CountryID = clsCountryData.AddNewCountry(this.CountryName);
 
             return this.CountryID != -1;
         }

@@ -4,9 +4,9 @@ using System.Data;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
-using ContactsDataAccessLayer;
+using DataAccessLayer;
 
-namespace ContactsBusinessLayer
+namespace BusinessLayer
 {
     //Entité
     public class clsContact

@@ -42,12 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsContact.cs" />
+    <Compile Include="clsCountry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContactsDataAccessLayer\ContactsDataAccessLayer.csproj">
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{2d865c27-9767-408b-b280-447e72938535}</Project>
-      <Name>ContactsDataAccessLayer</Name>
+      <Name>DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

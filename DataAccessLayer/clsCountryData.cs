@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using ContactsDataAccessLayer;
 
-namespace CountryDataAccessLayer
+
+namespace DataAccessLayer
 {
 
     
@@ -27,6 +27,7 @@ namespace CountryDataAccessLayer
                 if (reader.Read())
                 {
                     IsFound = true;
+
                     if (reader["CountryName"] == DBNull.Value)
                     {
                         CountryName = "";
@@ -56,8 +57,9 @@ namespace CountryDataAccessLayer
 
 
 
-        public static int AddNewAddNewCountry(string CountryName) {
+        public static int AddNewCountry(string CountryName) {
 
+            //this function will return the new contact id if succeeded and -1 if not.
             int CountryID = -1;
 
             SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
@@ -116,10 +118,12 @@ namespace CountryDataAccessLayer
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 IsFound = reader.HasRows;
+
+                reader.Close();
             }
             catch (Exception ex) 
-            { 
-
+            {
+                IsFound = false;
             }
             finally
             {
@@ -158,7 +162,7 @@ namespace CountryDataAccessLayer
             }
             catch(Exception ex)
             {
-
+                return false;
             }
             finally
             {
@@ -204,7 +208,7 @@ namespace CountryDataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
-            string Query = @"SELECT * FROM Countries";
+            string Query = @"SELECT * FROM Countries order by CountryName";
 
             SqlCommand command = new SqlCommand(Query, connection);
 
@@ -217,6 +221,8 @@ namespace CountryDataAccessLayer
                 {
                     dt.Load(reader);
                 }
+
+                reader.Close();
             }
             catch (Exception e)
             {
@@ -248,7 +254,9 @@ namespace CountryDataAccessLayer
 
                 if (reader.Read())
                 {
+                    // The record was found
                     IsFound = true;
+
                     CountryID = reader.GetInt32(0);
                 }
 
@@ -286,10 +294,11 @@ namespace CountryDataAccessLayer
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 IsFound = reader.HasRows;
+                reader.Close();
             }
             catch (Exception ex)
             {
-
+                IsFound = false;
             }
             finally
             {
