@@ -108,9 +108,13 @@ namespace CountryBusinessLayer
                 
         }
 
-        public static bool IsCountryExist(int ID)
+        public static bool IsCountryExistByID(int ID)
         {
             return clsCountryData.IsCountryExistByID(ID);
+        }
+        public static bool IsCountryExistByName(string Name)
+        {
+            return clsCountryData.IsCountryExistByNameDAL(Name);
         }
 
 

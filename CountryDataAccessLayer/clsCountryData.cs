@@ -269,5 +269,37 @@ namespace CountryDataAccessLayer
             return IsFound;
         }
 
+        public static bool IsCountryExistByNameDAL(string Name)
+        {
+            bool IsFound = false;
+
+            SqlConnection connection = new SqlConnection(DataSettings.ConnectionString);
+
+            string Query = @"SELECT Found = 1 FROM Countries WHERE CountryName = @CountryName";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            command.Parameters.AddWithValue("@CountryName", Name);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                IsFound = reader.HasRows;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+            return IsFound;
+        }
+
     }
 }

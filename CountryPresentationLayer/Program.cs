@@ -25,7 +25,7 @@ using CountryBusinessLayer;
 
         }
 
-        public static void UpdateCountryByID(int ID)
+        public static void TestUpdateCountryByID(int ID)
         {
             clsCountry country = clsCountry.Find(ID);
             if(country != null )
@@ -54,13 +54,13 @@ using CountryBusinessLayer;
         public static void TestIsCountryExistByID(int ID)
         {
 
-          if(clsCountry.IsCountryExist(ID))
+          if(clsCountry.IsCountryExistByID(ID))
           {
-            Console.WriteLine("Yes Country is exist");
+            Console.WriteLine("Yes Country  exists");
           }
           else
           {
-            Console.WriteLine("No, Country is not");
+            Console.WriteLine("No, Country doesn't exist");
 
           }
         }
@@ -75,9 +75,9 @@ using CountryBusinessLayer;
                 Console.WriteLine("Country Add Failed");
         }
 
-        public static void DeleteCountryByID(int ID)
+        public static void TestDeleteCountryByID(int ID)
         {
-           if( clsCountry.IsCountryExist(ID))
+           if( clsCountry.IsCountryExistByID(ID))
            {
               if(clsCountry.DeleteByID(ID))
               {
@@ -101,7 +101,7 @@ using CountryBusinessLayer;
         }
 
 
-        public static void GetAllCountries()
+        public static void TestGetAllCountries()
         {
           DataTable datatable = clsCountry.GetAllCountries();
 
@@ -119,7 +119,7 @@ using CountryBusinessLayer;
             }
         }
 
-        public static void FindCountryByName(string CountryName)
+        public static void TestFindCountryByName(string CountryName)
         {
            clsCountry country = clsCountry.FindByName(CountryName);
           if(country != null )
@@ -133,15 +133,24 @@ using CountryBusinessLayer;
           }
 
         }
+
+        public static void TestIsCountryExistByName(string Name)
+        {
+           if(clsCountry.IsCountryExistByName(Name))
+           {
+              Console.WriteLine(@"Yes Country Exists");
+
+           }
+           else
+           {
+              Console.WriteLine(@"No Country doesn't exist");
+
+           }
+
+        }
         static void Main(string[] args)
         {
-            //TestFindByID(7);
-            //TestAddNewCountry();
-            //TestIsCountryExistByID(9);
-            //DeleteCountryByID(7);
-            //UpdateCountryByID(9);
-            //GetAllCountries();
-            FindCountryByName("morocco");
+           TestIsCountryExistByName("Canada");
 
             Console.ReadKey();
         }
