@@ -32,12 +32,12 @@ namespace PresentationLayer
         static void TestAddNewContact()
         {
             clsContact contact = new clsContact();
-            contact.FirstName = "Youness";
-            contact.LastName = "Dalal";
-            contact.Email = "Younessdalal@gmail.com";
-            contact.Phone = "0631546012";
-            contact.Address = "Sidi Maarouf";
-            contact.DateOfBirth = new DateTime(1998, 02, 27);
+            contact.FirstName = "Mohammed";
+            contact.LastName = "Fares";
+            contact.Email = "Mohammed@gmail.com";
+            contact.Phone = "06589632";
+            contact.Address = "Bournazil";
+            contact.DateOfBirth = new DateTime(1994, 02, 27);
             contact.ImagePath = "C://Image.png";
             contact.CountryID = 1;
            
@@ -138,6 +138,9 @@ namespace PresentationLayer
 
         // Test Country Methodes
 
+
+        // Modification dans la methode FindByID
+        //validate
         public static void TestFindCountryByID(int ID)
         {
             clsCountry country = clsCountry.Find(ID);
@@ -148,7 +151,8 @@ namespace PresentationLayer
 
                 Console.WriteLine($"CountryID   : {country.CountryID}");
                 Console.WriteLine($"CountryName : {country.CountryName}");
-
+                Console.WriteLine($"CountryCode : {country.Code}");
+                Console.WriteLine($"PhoneCode   : {country.PhoneCode}");
 
             }
             else
@@ -158,6 +162,7 @@ namespace PresentationLayer
 
         }
 
+        // validate
         public static void TestUpdateCountryByID(int ID)
         {
             clsCountry country = clsCountry.Find(ID);
@@ -165,6 +170,8 @@ namespace PresentationLayer
             {
                 //update whatever info you want
                 country.CountryName = "Mexico";
+                country.Code = "458";
+                country.PhoneCode = "745";
 
                 if (country.Save())
                 {
@@ -185,6 +192,7 @@ namespace PresentationLayer
 
         }
 
+        // validate
         public static void TestIsCountryExistByID(int ID)
         {
 
@@ -198,17 +206,22 @@ namespace PresentationLayer
 
             }
         }
+
+        //validate
         public static void TestAddNewCountry()
         {
             clsCountry country = new clsCountry();
-            country.CountryName = "Palestine";
+            country.CountryName = "Jordan";
+            country.Code = "123";
+            country.PhoneCode = "890";
 
-            if (country.Save())
+             if (country.Save())
                 Console.WriteLine("Country Added Succesfully");
             else
                 Console.WriteLine("Country Add Failed");
         }
 
+        // in progress
         public static void TestDeleteCountryByID(int ID)
         {
             if (clsCountry.IsCountryExistByID(ID))
@@ -235,7 +248,7 @@ namespace PresentationLayer
         }
 
 
-        
+        //validate
         public static void TestGetAllCountries()
         {
             DataTable datatable = clsCountry.GetAllCountries();
@@ -244,7 +257,7 @@ namespace PresentationLayer
             {
                 foreach (DataRow row in datatable.Rows)
                 {
-                    Console.WriteLine($"CountryID =  {row["CountryID"]} : CountryName = {row["CountryName"]}");
+                    Console.WriteLine($"CountryID =  {row["CountryID"]} : CountryName = {row["CountryName"]} : Code = {row["Code"]} : PhoneCode = {row["PhoneCode"]}");
 
                 }
             }
@@ -254,13 +267,18 @@ namespace PresentationLayer
             }
         }
 
+        // validate
         public static void TestFindCountryByName(string CountryName)
         {
             clsCountry country = clsCountry.FindByName(CountryName);
+
             if (country != null)
             {
                 Console.WriteLine($"CountryID   : {country.CountryID}");
                 Console.WriteLine($"CountryName : {country.CountryName}");
+                Console.WriteLine($"CountryCode : {country.Code}");
+                Console.WriteLine($"PhoneCode   : {country.PhoneCode}");
+
             }
             else
             {
@@ -269,6 +287,7 @@ namespace PresentationLayer
 
         }
 
+        //validate
         public static void TestIsCountryExistByName(string Name)
         {
             if (clsCountry.IsCountryExistByName(Name))
@@ -285,7 +304,7 @@ namespace PresentationLayer
         }
         static void Main(string[] args)
         {
-            TestIsCountryExistByName("Palestine");
+            TestGetAllCountries();
             Console.ReadLine();
         }
     }
